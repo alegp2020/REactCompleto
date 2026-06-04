@@ -40,7 +40,7 @@ export default function Page() {
     }
 
     // Para eliminar filtramos toda la lista de tarea exceptuando la que queremos eliminar
-    function eliminar(id: number){
+    function eliminar(id: number) {
         // Me quedo con todas las tareas menos esa
         setTareaG(tareaG.filter(tarea => tarea.Id != id));
     }
@@ -48,18 +48,18 @@ export default function Page() {
     // Al marcar una tarea como completada se recupera de la lista de tareas y se introduce en la lista de completadas
     // Luego la eliminamos
     // Incrementamos el contador
-    function completada(id:number){
+    function completada(id: number) {
         let tarea = tareaG.filter(tarea => tarea.Id == id);
         setTareaComplet([...tareaComplet, tarea[0]])
         eliminar(id);
-        setContador(contador+1);
+        setContador(contador + 1);
     }
 
-    function verTareas(){
-        if (mostrarTareasCompletadas){
+    function verTareas() {
+        if (mostrarTareasCompletadas) {
             setMostrarTareasCompletadas(false);
 
-        }else{
+        } else {
             setMostrarTareasCompletadas(true);
         }
     }
@@ -95,52 +95,65 @@ export default function Page() {
                     </button>
                 </div>
                 <div className="flex flex-col items-center">
-                    <h2 className="text-xl font-bold text-teal-800 mb-4">
+                    <h2 className="text-xl font-bold text-teal-800 mb-4 ">
                         Lista de tareas
                     </h2>
 
-                    <h4>Tareas completadas: {contador}</h4>
 
-                    <ul className="flex flex-col gap-2">
+
+                    <h4 className= "mb-5">Tareas completadas: {contador}</h4>
+
+                    <ul className="flex flex-col gap-5 mb-3">
                         {tareaG.map((tarea, i) => (
-                            
+
                             <li
                                 key={i}
                                 className="border border-sky-200 rounded-xl p-5 bg-sky-50 w-64 shadow-sm"
                             >
-                                <button onClick = {() => eliminar(tarea.Id)} className="bg-red-200 p-2 m-1 rounded">X</button>
-                                <button onClick = {() => completada(tarea.Id)} className="bg-blue-200 p-2 m-1 rounded">O</button>
-                                {tarea.Titulo} - {tarea.Descripcion}
-                            
+                                <div className="justify-center text-center mb-2">
+                                    <h3 className="justify-center text-center gap-5 mb-5">Titulo: {tarea.Titulo}</h3>
+                                    <p className="justify-center text-center gap-5 mb-5">Descripción: {tarea.Descripcion}</p>
+                                </div>
+
+
+                                <div className="flex flex-row gap-3 justify-center items-center">
+                                    <button onClick={() => eliminar(tarea.Id)} className="bg-red-200 p-2 m-1 rounded">Eliminar</button>
+                                    <button onClick={() => completada(tarea.Id)} className="bg-blue-200 p-2 m-1 rounded">Completada</button>
+                                </div>
+
+
+
+
+
                             </li>
                         ))}
                     </ul>
                 </div>
 
-                
-                
+
+
 
             </main >
 
-            {/* MOSTRAR TAREAS COMPLETADAS */}
-            <div className="flex flex-col mr-60 ml-60 justify-center p-10">
-                        <button className="bg-red-200 p-2 rounded" onClick = {verTareas}>Ver tareas completadas</button>
-                        <br></br>
-{/* Solo si mostrarTareasCompletadas está a true, se mostrará la lista de tareas, sino permanecerá oculta */}
-                {mostrarTareasCompletadas && (<ul className="flex flex-col gap-2">
-                        {tareaComplet.map((tarea, i) => (
-                            
-                            <li
-                                key={i}
-                                className="border border-sky-200 rounded-xl p-5 bg-sky-50 w-64 shadow-sm justify-center"
-                            >
-                                {tarea.Titulo} - {tarea.Descripcion}
-                            
-                            </li>
-                        ))}
-                    </ul>)}
 
-                </div>
+            <div className="flex flex-col items-center p-10">
+                <button className="bg-red-200 p-2  mb-4 rounded" onClick={verTareas}>Ver tareas completadas</button>
+
+
+                {mostrarTareasCompletadas && (<ul className="flex flex-col gap-2 items-center">
+                    {tareaComplet.map((tarea, i) => (
+
+                        <li
+                            key={i}
+                            className="border border-sky-200 rounded-xl p-5 bg-sky-50 w-64 shadow-sm justify-center"
+                        >
+                            {tarea.Titulo} - {tarea.Descripcion}
+
+                        </li>
+                    ))}
+                </ul>)}
+
+            </div>
         </>
     );
 } 
