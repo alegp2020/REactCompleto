@@ -33,40 +33,79 @@ export default async function Page() {
     revalidatePath("/gestor")
   }
 
-  return (
-    <main>
-      <h1>Gestor de tareas</h1>
+return (
+  <>
+    <header className="bg-sky-200 text-sky-900 p-4">
+      <h1 className="text-3xl font-bold text-center">
+        Gestor de tareas
+      </h1>
+    </header>
 
-      <form action={crearTarea}>
-        <label>
+
+    <main className="m-10 flex flex-row gap-6 p-10 rounded-xl justify-center">
+      <form
+        action={crearTarea}
+        className="flex flex-col gap-6 p-10 rounded-xl border border-teal-200 bg-teal-50 shadow-md"
+      >
+        <label className="flex flex-col gap-2 text-teal-800 font-semibold">
           Título
-          <input name="titulo" />
+          <input
+            name="titulo"
+            className="rounded-xl p-2 border border-teal-200 bg-white"
+          />
         </label>
 
-        <label>
+
+        <label className="flex flex-col gap-2 text-teal-800 font-semibold">
           Descripción
-          <textarea name="descripcion" />
+          <textarea
+            name="descripcion"
+            className="border border-teal-200 rounded-xl p-2 h-24 bg-white"
+          />
         </label>
 
-        <button type="submit">Guardar tarea</button>
+
+        <button
+          type="submit"
+          className="bg-sky-300 rounded-xl p-2 text-sky-900 font-semibold"
+        >
+          Guardar tarea
+        </button>
       </form>
 
-      <section>
-        <h2>Tareas guardadas</h2>
+
+      <section className="flex flex-col items-center">
+        <h2 className="text-xl font-bold text-teal-800 mb-4">
+          Tareas guardadas
+        </h2>
+
 
         {tareas.length === 0 ? (
-          <p>Todavía no hay tareas.</p>
+          <p className="text-teal-700">Todavía no hay tareas.</p>
         ) : (
-          <ul>
+          <ul className="flex flex-col gap-5 mb-3">
             {tareas.map((tarea) => (
-              <li key={tarea.id}>
-                <strong>{tarea.titulo}</strong>
-                <p>{tarea.descripcion}</p>
+              <li
+                key={tarea.id}
+                className="border border-sky-200 rounded-xl p-5 bg-sky-50 w-64 shadow-sm"
+              >
+                <div className="text-center mb-2">
+                  <h3 className="mb-5 font-semibold">
+                    Título: {tarea.titulo}
+                  </h3>
+                  <p className="mb-5">
+                    Descripción: {tarea.descripcion}
+                  </p>
+                </div>
 
-                <form action={eliminarTareaAction}>
+
+                <form action={eliminarTareaAction} className="flex justify-center">
                   <input type="hidden" name="id" value={tarea.id} />
-                  <button type="submit">
-                    Eliminar tarea
+                  <button
+                    type="submit"
+                    className="bg-red-200 p-2 m-1 rounded"
+                  >
+                    Eliminar
                   </button>
                 </form>
               </li>
@@ -75,5 +114,8 @@ export default async function Page() {
         )}
       </section>
     </main>
-  )
+  </>
+)
+
+
 }
